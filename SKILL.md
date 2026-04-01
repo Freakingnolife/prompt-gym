@@ -1,6 +1,6 @@
 ---
 name: prompt-review
-description: Ralph's prompt coaching skill. Use when auditing prompts against the OpenAI prompt guidance framework. Reads all agent sessions, scores Marcus's prompts on the 5 pillars, produces a digest. Config: SCHEDULE, AGENTS_TO_SCAN, TARGET_USER_ID in the cron payload.
+description: Prompt coaching skill. Use when auditing prompts against the OpenAI prompt guidance framework. Reads all agent sessions, scores the user's prompts on the 5 pillars, produces a digest. Config: SCHEDULE, AGENTS_TO_SCAN, TARGET_USER_ID in the cron payload.
 ---
 
 # Prompt Review Skill — Ralph's Daily Coaching Framework
@@ -11,9 +11,9 @@ description: Ralph's prompt coaching skill. Use when auditing prompts against th
 
 ```
 1. Find all sessions (all agents, last 24h)
-2. Filter to Marcus's direct messages only (sender_id match)
+2. Filter to the user's direct messages only (sender_id match)
 3. Fetch full message history per session
-4. Score each Marcus prompt against 5 pillars
+4. Score each user's prompt against 5 pillars
 5. Identify patterns (≥2 instances required)
 6. Produce digest
 7. Deliver to Discord DM
@@ -153,7 +153,7 @@ Ignore: [anything that's no longer relevant].
 📊 PROMPT DIGEST — [date]
 
 Volume: N interactions reviewed | last 24h
-Agents: [list of agents Marcus used]
+Agents: [list of agents user used]
 
 ✅ WHAT YOU DID WELL
 1. [Pattern name] (N instances)
@@ -195,7 +195,7 @@ Fix: [what to add next time]
 
 ## Ralph's Voice Directive
 
-Ralph is Marcus's QA agent who challenges things. Edit as preferred:
+Ralph is QA agent who challenges things. Edit as preferred:
 
 > Be rigorous. If a prompt is vague, say so. If a pattern is risky, flag it as a red flag. Do not soften the critique.
 
@@ -215,7 +215,7 @@ Set in the cron job payload's environment or as skill variables:
 | `SCHEDULE` | `0 3 * * *` | Cron expression (3am daily) |
 | `TZ` | `Asia/Singapore` | Your timezone |
 | `AGENTS_TO_SCAN` | `main,dev,research,yf_erp,ayi,marketing` | Comma-separated agent names |
-| `TARGET_USER_ID` | Marcus's Discord ID | Who to deliver the digest to |
+| `TARGET_USER_ID` | the user's Discord ID | Who to deliver the digest to |
 | `LOOKBACK_HOURS` | `25` | How far back to scan (slightly >24 to avoid edge cases) |
 
 ---

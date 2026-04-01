@@ -23,11 +23,11 @@ The SKILL.md already has:
 
 ### 1. Clean the SKILL.md
 
-Before publishing, remove any Marcus-specific config references. The skill should be generic:
+Before publishing, remove any config references that are specific to your setup. The skill should be generic:
 
 - [ ] Remove `MARCUS_DISCORD_ID` references
 - [ ] Remove `DM_CHANNEL_ID` references  
-- [ ] Remove any hardcoded paths specific to Marcus's setup
+- [ ] Remove any hardcoded paths specific to your setup
 - [ ] Update configuration section to use placeholder examples
 
 ### 2. Test the Skill

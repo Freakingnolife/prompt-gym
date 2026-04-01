@@ -86,7 +86,7 @@ Add to your `~/.openclaw/cron/jobs.json`:
 {
   "id": "prompt-digest-daily",
   "agentId": "ralph",
-  "name": "Prompt Digest → Marcus (Daily 3am SGT)",
+  "name": "Prompt Digest → Daily (3am)",
   "schedule": {
     "kind": "cron",
     "expr": "0 3 * * *",
@@ -156,6 +156,6 @@ Change to suit your preference:
 
 ## Credits
 
-Built by [Marcus Liang](https://github.com/Freakingnolife) for the [OpenClaw](https://openclaw.ai) ecosystem.
+Built for the [OpenClaw](https://openclaw.ai) ecosystem.
 
 The audit framework is adapted from [OpenAI's Prompt Guidance guide](https://developers.openai.com/api/docs/guides/prompt-guidance).

@@ -7,7 +7,7 @@ This guide walks you through setting up Ralph's Prompt Digest from scratch.
 - OpenClaw installed and running
 - At least one additional agent configured (Ralph — your QA agent)
 - Discord bot account for Ralph
-- Shared server between Ralph's bot and your Discord account
+- Shared server between the bot and your Discord account
 - `curl`, `python3`, `jq` available on your system
 
 ---
@@ -208,9 +208,9 @@ openclaw gateway restart
 | Symptom | Fix |
 |---------|-----|
 | "Unknown Channel" when sending DM | DM channel doesn't exist — run Step 4 again |
-| "Missing Access" when sending DM | Ralph's bot not in any shared server with Marcus |
+| "Missing Access" when sending DM | the bot not in any shared server with the user |
 | Cron never fires | Check `nextRunAtMs` is in the future |
-| Digest empty | No Marcus prompts in last 24h — check sessions are being tracked |
+| Digest empty | No the user prompts in last 24h — check sessions are being tracked |
 | Ralph times out | Increase `timeoutSeconds` to 600; reduce agents in `AGENTS_TO_SCAN` |
 
 ---

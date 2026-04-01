@@ -11,7 +11,7 @@ The prompt digest runs as an OpenClaw cron job. The job wakes Ralph up at the sc
 Ralph needs a Discord DM channel to send messages to. To create/find the channel ID:
 
 ```bash
-# Using Ralph's bot token — creates DM channel with Marcus
+# Using the bot token — creates DM channel with the user
 curl -s -X POST \
   -H "Authorization: Bot $OPENCLAW_DISCORD_RALPH_TOKEN" \
   -H "Content-Type: application/json" \
@@ -47,7 +47,7 @@ Add to your `~/.openclaw/cron/jobs.json`:
     "kind": "agentTurn",
     "model": "anthropic/claude-sonnet-4-6",
     "timeoutSeconds": 300,
-    "message": "Read ~/.openclaw/skills/prompt-review/SKILL.md then run the prompt digest for Marcus. Deliver to Discord DM channel 1478943974910853293 using curl with Ralph's token (OPENCLAW_DISCORD_RALPH_TOKEN env var)."
+    "message": "Read ~/.openclaw/skills/prompt-review/SKILL.md then run the prompt digest for the user. Deliver to Discord DM channel YOUR_DM_CHANNEL_ID using curl with Ralph's token (OPENCLAW_DISCORD_RALPH_TOKEN env var)."
   },
   "delivery": {
     "mode": "announce",
@@ -138,7 +138,7 @@ To trigger a test run immediately:
    ```
    If this returns an error, fix Discord bot permissions first.
 
-2. Check the `delivery.to` field matches the DM channel ID (not Marcus's user ID)
+2. Check the `delivery.to` field matches the DM channel ID (not the user's user ID)
 
 3. Check the cron job's `nextRunAtMs` — if it's in the past, update it
 
@@ -148,8 +148,8 @@ To trigger a test run immediately:
 - Reduce `LOOKBACK_HOURS` from 25 to 12
 
 ### Digest is empty
-- Check Marcus actually sent direct messages in the last 24h
-- Check the `sender_id` filter matches Marcus's actual Discord user ID
+- Check the user actually sent direct messages in the last 24h
+- Check the `sender_id` filter matches the user's actual Discord user ID
 - Verify sessions are being tracked (check OpenClaw session history)
 
 ---

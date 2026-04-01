@@ -54,10 +54,11 @@ jobs:
           
           echo "All required sections present ✓"
 
-      - name: Check SKILL.md has no hardcoded user IDs
+      - name: Check SKILL.md has no hardcoded Discord IDs
         run: |
-          if grep -E "1471901215188324372|1478942607387263037|1478943974910853293" SKILL.md; then
-            echo "ERROR: SKILL.md contains hardcoded Discord IDs — remove before publishing"
+          # Discord IDs are 17-19 digit numbers — flag any that appear
+          if grep -oE "[0-9]{17,19}" SKILL.md; then
+            echo "ERROR: SKILL.md contains numeric Discord IDs — replace with YOUR_DISCORD_ID / YOUR_DM_CHANNEL_ID placeholders"
             exit 1
           fi
           echo "No hardcoded IDs ✓"

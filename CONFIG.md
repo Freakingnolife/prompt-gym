@@ -76,7 +76,7 @@ Agents to check: main, dev, research, yf_erp, ayi, marketing, engineering, sales
 
 ```bash
 # 1. Get Ralph's bot token from ~/.openclaw/.env
-# OPENCLAW_DISCORD_RALPH_TOKEN=MTQ3ODk0...
+# OPENCLAW_DISCORD_RALPH_TOKEN=<your-bot-token>
 
 # 2. Create/find DM channel with Marcus
 curl -s -X POST \
@@ -94,7 +94,7 @@ curl -s -X POST \
 ```
 Account ID: ralph
 Token env var: OPENCLAW_DISCORD_RALPH_TOKEN
-Shared server: Harwav (1471910209449623736)
+Shared server: Your Discord server (wherever your bot and user share a guild)
 Bot intent: CREATE_DM (enabled by default)
 ```
 
