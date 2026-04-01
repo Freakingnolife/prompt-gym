@@ -1,5 +1,9 @@
 # Prompt Gym — Ralph's Daily Prompt Coach
 
+> ### One-line setup (for OpenClaw agents)
+> Say to your agent: **"Set up Prompt Gym from https://github.com/Freakingnolife/prompt-gym"**
+> Your agent reads `START_HERE.md` and walks you through everything — one question at a time.
+
 > **"You can't improve what you can't see."**
 > Ralph reviews all your agent prompts every 24 hours, scores them against the OpenAI prompt guidance framework, and sends you a daily digest — automatically.
 
@@ -53,43 +57,31 @@ Every prompt is scored on:
 
 ## Prerequisites
 
-- OpenClaw running with multiple agents
-- Ralph agent configured (your QA agent)
-- Discord bot account for Ralph (with DM permissions)
-- Discord server shared between Ralph's bot and you
+The interactive setup handles most of this. You'll need:
+
+- OpenClaw running with at least one agent
+- A second agent configured as your QA coach (the agent doing the reviewing)
+- A Discord account (for receiving digests)
+- About 5 minutes to answer questions
 
 ---
 
 ## Quick Start
 
-### Step 1: Install the skill
+### The easy way: let your agent do it
 
-Copy `SKILL.md` to your OpenClaw skills directory:
+Say to your OpenClaw agent:
 
-```bash
-cp SKILL.md ~/.openclaw/skills/prompt-review/SKILL.md
-```
+> **"Set up Prompt Gym from https://github.com/Freakingnolife/prompt-gym"**
 
-### Step 2: Configure
+Your agent reads `SETUP.md` and walks you through everything — one question at a time. You just answer. It handles the cron jobs, skill install, and Discord channel creation.
 
-Edit the skill's CONFIG section:
-- `RALPH_DISCORD_USER_ID` — your Discord user ID
-- `RALPH_DM_CHANNEL_ID` — Ralph's DM channel ID
-- `SCHEDULE` — cron expression (default: `0 3 * * *` = 3am daily)
-- `AGENTS_TO_SCAN` — which agents to review (default: all)
+### The manual way
 
-### Step 3: Set up the cron job
-
-Add to your `~/.openclaw/cron/jobs.json`:
-
-```json
-{
-  "id": "prompt-gym-daily",
-  "agentId": "ralph",
-  "name": "Prompt Gym → Daily (3am)",
-  "schedule": {
-    "kind": "cron",
-    "expr": "0 3 * * *",
+1. Read `START_HERE.md` — understand what it does in 30 seconds
+2. Read `INSTALL.md` — follow the step-by-step guide
+3. Read `CONFIG.md` — customise the configuration
+4. Read `SETUP.md` — if your agent is running the interactive setup
     "tz": "Asia/Singapore"
   },
   "sessionTarget": "isolated",
@@ -124,16 +116,19 @@ See `CRON_SETUP.md` for full step-by-step instructions.
 
 ```
 prompt-gym/
+├── START_HERE.md          ← Entry point: 30-sec overview + how to begin
+├── SETUP.md               ← Interactive setup (for your AI agent to run)
 ├── README.md              ← You are here
 ├── SKILL.md               ← The 5-pillar audit framework (for OpenClaw)
 ├── CRON_SETUP.md          ← Step-by-step cron job setup
 ├── CONFIG.md              ← Configuration reference
 ├── TEMPLATES.md           ← Digest output formats + prompt templates
-├── INSTALL.md             ← Full installation guide
-├── .github/
-│   └── workflows/
-│       └── digest-test.yml ← Test the digest on your prompts (CI)
-└── CLAWHUB.md             ← How to publish on ClawhHub
+├── INSTALL.md             ← Full manual installation guide
+├── CLAWHUB.md             ← How to publish on ClawhHub
+├── LICENSE                ← MIT
+└── .github/
+    └── workflows/
+        └── prompt-gym-test.yml ← CI: lints skill on every push
 ```
 
 ---
