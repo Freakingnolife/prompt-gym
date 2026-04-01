@@ -55,7 +55,7 @@ Your agent will read the setup guide and walk you through it — one question at
 
 ---
 
-## The 5 Pillars (What Ralph Scores)
+## The 9 Pillars (What Ralph Scores)
 
 | Pillar | What it means |
 |--------|--------------|

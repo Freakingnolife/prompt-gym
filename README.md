@@ -15,7 +15,7 @@ Every day at a scheduled time, Ralph (your QA agent) wakes up and:
 
 1. **Scans** all your agent sessions from the last 24 hours
 2. **Filters** to only your direct prompts
-3. **Scores** each one against the 5-pillar audit framework
+3. **Scores** each one against the 9-pillar audit framework
 4. **Identifies** patterns — recurring mistakes and consistent wins
 5. **Delivers** a structured digest to your Discord DMs
 
@@ -41,7 +41,7 @@ The digest looks like this:
 
 ---
 
-## The 5-Pillar Audit Framework
+## The 9-Pillar Audit Framework
 
 Every prompt is scored on:
 
@@ -119,7 +119,7 @@ prompt-gym/
 ├── START_HERE.md          ← Entry point: 30-sec overview + how to begin
 ├── SETUP.md               ← Interactive setup (for your AI agent to run)
 ├── README.md              ← You are here
-├── SKILL.md               ← The 5-pillar audit framework (for OpenClaw)
+├── SKILL.md               ← The 9-pillar audit framework (for OpenClaw)
 ├── CRON_SETUP.md          ← Step-by-step cron job setup
 ├── CONFIG.md              ← Configuration reference
 ├── TEMPLATES.md           ← Digest output formats + prompt templates
