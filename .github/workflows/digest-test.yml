@@ -1,0 +1,173 @@
+name: Test Prompt Digest on PR Changes
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'SKILL.md'
+      - 'TEMPLATES.md'
+      - 'CRON_SETUP.md'
+  pull_request:
+    paths:
+      - 'SKILL.md'
+      - 'TEMPLATES.md'
+      - 'CRON_SETUP.md'
+
+jobs:
+  lint-skill:
+    runs-on: ubuntu-latest
+    name: Lint SKILL.md
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check SKILL.md exists
+        run: |
+          if [ ! -f SKILL.md ]; then
+            echo "ERROR: SKILL.md not found"
+            exit 1
+          fi
+
+      - name: Check SKILL.md has required sections
+        run: |
+          echo "Checking required sections..."
+          
+          REQUIRED_SECTIONS=(
+            "name:"
+            "description:"
+            "5 Pillars"
+            "Output Contract"
+            "Scope & Boundaries"
+            "Tool & Dependency"
+            "Task Classification"
+            "Context Hygiene"
+            "Digest"
+          )
+          
+          for section in "${REQUIRED_SECTIONS[@]}"; do
+            if ! grep -q "$section" SKILL.md; then
+              echo "ERROR: Missing section '$section' in SKILL.md"
+              exit 1
+            fi
+          done
+          
+          echo "All required sections present ✓"
+
+      - name: Check SKILL.md has no hardcoded user IDs
+        run: |
+          if grep -E "1471901215188324372|1478942607387263037|1478943974910853293" SKILL.md; then
+            echo "ERROR: SKILL.md contains hardcoded Discord IDs — remove before publishing"
+            exit 1
+          fi
+          echo "No hardcoded IDs ✓"
+
+      - name: Check template files exist
+        run: |
+          for f in CRON_SETUP.md CONFIG.md TEMPLATES.md INSTALL.md README.md; do
+            if [ ! -f "$f" ]; then
+              echo "WARNING: $f not found"
+            else
+              echo "✓ $f"
+            fi
+          done
+
+  validate-cron-template:
+    runs-on: ubuntu-latest
+    name: Validate Cron Template
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check CRON_SETUP.md has valid JSON example
+        run: |
+          # Verify the JSON example in CRON_SETUP.md is valid
+          # Extract the JSON block (between ```json and ```)
+          python3 -c "
+import re, json, sys
+
+with open('CRON_SETUP.md') as f:
+            content = f.read()
+
+# Find JSON code blocks
+matches = re.findall(r'\`\`\`json\s*(.*?)\`\`\`', content, re.DOTALL)
+if not matches:
+            print('WARNING: No JSON examples found in CRON_SETUP.md')
+            sys.exit(0)
+
+for m in matches:
+            try:
+                data = json.loads(m)
+                # Validate required fields
+                required = ['id', 'agentId', 'schedule', 'payload', 'delivery']
+                for field in required:
+                    if field not in data:
+                        print(f'ERROR: Missing field \"{field}\" in JSON example')
+                        sys.exit(1)
+                print('Cron JSON template valid ✓')
+            except json.JSONDecodeError as e:
+                print(f'ERROR: Invalid JSON in CRON_SETUP.md: {e}')
+                sys.exit(1)
+          "
+
+  validate-readme:
+    runs-on: ubuntu-latest
+    name: Validate README
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: README has required sections
+        run: |
+          echo "Checking README structure..."
+          
+          python3 -c "
+import sys
+with open('README.md') as f:
+    content = f.read()
+    
+required = ['What it does', '5-Pillar', 'Prerequisites', 'Quick Start', 'File Structure']
+for section in required:
+    if section not in content:
+        print(f'WARNING: Missing \"{section}\" in README.md')
+    else:
+        print(f'✓ {section}')
+"
+
+  spellcheck:
+    runs-on: ubuntu-latest
+    name: Basic Spell Check
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for common typos
+        run: |
+          # Basic checks for common prompt-engineering term consistency
+          grep -i "piller" README.md SKILL.md CRON_SETUP.md && echo "ERROR: 'piller' should be 'pillar'" && exit 1 || echo "pillar ✓"
+          grep -i "propmt" README.md SKILL.md && echo "ERROR: 'propmt' should be 'prompt'" && exit 1 || echo "prompt ✓"
+          grep -i "deliverable" SKILL.md | head -1 && echo "✓"
+
+  publish-ready:
+    needs: [lint-skill, validate-cron-template, validate-readme]
+    runs-on: ubuntu-latest
+    name: Publishing Checklist
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Generate CLAWHUB checklist
+        run: |
+          echo "## Pre-publish Checklist"
+          echo ""
+          echo "- [ ] SKILL.md has no hardcoded Discord IDs"
+          echo "- [ ] All 5 pillars documented"
+          echo "- [ ] Digest format template included"
+          echo "- [ ] Cron setup documented"
+          echo "- [ ] Config variables documented"
+          echo "- [ ] README credits updated (your name, your GitHub)"
+          echo "- [ ] Version bumped in CLAWHUB.md"
+          echo "- [ ] Tested manually in your OpenClaw"
+          echo ""
+          echo "## To publish:"
+          echo "1. Go to https://clawhub.com/publish"
+          echo "2. Upload SKILL.md"
+          echo "3. Add description + tags"
+          echo "4. Submit"
