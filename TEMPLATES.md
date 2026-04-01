@@ -127,7 +127,7 @@ For each step: [what to do], [tool needed], [risk if wrong]
 ### Review + Improve Prompt (Meta)
 ```
 Review this prompt: [paste prompt]
-Against: OpenAI prompt guidance 5 pillars
+Against: OpenAI prompt guidance 9 pillars
 Return: [format spec]
 Fix: [what to add/remove/change]
 ```
