@@ -1,4 +1,4 @@
-name: Test Prompt Digest on PR Changes
+name: Test Prompt Gym on PR Changes
 
 on:
   push:

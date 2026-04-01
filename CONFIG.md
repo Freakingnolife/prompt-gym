@@ -1,14 +1,14 @@
 # Configuration Reference
 
-All configurable values for the Prompt Digest system.
+All configurable values for the Prompt Gym system.
 
 ## Cron Job Config (`~/.openclaw/cron/jobs.json`)
 
 ```json
 {
-  "id": "prompt-digest-daily",
+  "id": "prompt-gym-daily",
   "agentId": "ralph",
-  "name": "Prompt Digest → Daily (3am SGT)",
+  "name": "Prompt Gym → Daily (3am SGT)",
   "schedule": {
     "kind": "cron",
     "expr": "0 3 * * *",

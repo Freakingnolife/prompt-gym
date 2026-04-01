@@ -1,4 +1,4 @@
-# Prompt Digest — Ralph's Daily Prompt Coach
+# Prompt Gym — Ralph's Daily Prompt Coach
 
 > **"You can't improve what you can't see."**
 > Ralph reviews all your agent prompts every 24 hours, scores them against the OpenAI prompt guidance framework, and sends you a daily digest — automatically.
@@ -84,9 +84,9 @@ Add to your `~/.openclaw/cron/jobs.json`:
 
 ```json
 {
-  "id": "prompt-digest-daily",
+  "id": "prompt-gym-daily",
   "agentId": "ralph",
-  "name": "Prompt Digest → Daily (3am)",
+  "name": "Prompt Gym → Daily (3am)",
   "schedule": {
     "kind": "cron",
     "expr": "0 3 * * *",
@@ -97,7 +97,7 @@ Add to your `~/.openclaw/cron/jobs.json`:
   "payload": {
     "kind": "agentTurn",
     "timeoutSeconds": 300,
-    "message": "Read SKILL.md then run the prompt digest for the user."
+    "message": "Read SKILL.md then run the prompt gym for the user."
   },
   "delivery": {
     "mode": "announce",
@@ -115,7 +115,7 @@ See `CRON_SETUP.md` for full step-by-step instructions.
 ```bash
 # Run the digest manually right now
 # In your Ralph agent session:
-/run prompt-digest --test
+/run prompt-gym --test
 ```
 
 ---
@@ -123,7 +123,7 @@ See `CRON_SETUP.md` for full step-by-step instructions.
 ## File Structure
 
 ```
-prompt-digest/
+prompt-gym/
 ├── README.md              ← You are here
 ├── SKILL.md               ← The 5-pillar audit framework (for OpenClaw)
 ├── CRON_SETUP.md          ← Step-by-step cron job setup

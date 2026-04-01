@@ -1,6 +1,6 @@
 # Installation Guide — Full Setup in 15 Minutes
 
-This guide walks you through setting up Ralph's Prompt Digest from scratch.
+This guide walks you through setting up Ralph's Prompt Gym from scratch.
 
 ## Prerequisites
 
@@ -50,7 +50,7 @@ In Discord Developer Portal → Ralph's Bot → Bot settings:
 mkdir -p ~/.openclaw/skills/prompt-review
 
 # Copy the skill
-cp prompt-digest/SKILL.md ~/.openclaw/skills/prompt-review/SKILL.md
+cp prompt-gym/SKILL.md ~/.openclaw/skills/prompt-review/SKILL.md
 
 # Verify
 cat ~/.openclaw/skills/prompt-review/SKILL.md | head -20
@@ -116,9 +116,9 @@ cp ~/.openclaw/cron/jobs.json ~/.openclaw/cron/jobs.json.bak
 # Add the job (replace values first!)
 cat >> ~/.openclaw/cron/jobs.json.new << 'JOBEOF'
 {
-  "id": "prompt-digest-daily",
+  "id": "prompt-gym-daily",
   "agentId": "ralph",
-  "name": "Prompt Digest → Daily (3am SGT)",
+  "name": "Prompt Gym → Daily (3am SGT)",
   "enabled": true,
   "createdAtMs": 1775070000000,
   "updatedAtMs": 1775070000000,
@@ -133,7 +133,7 @@ cat >> ~/.openclaw/cron/jobs.json.new << 'JOBEOF'
     "kind": "agentTurn",
     "model": "anthropic/claude-sonnet-4-6",
     "timeoutSeconds": 300,
-    "message": "Read ~/.openclaw/skills/prompt-review/SKILL.md then run the prompt digest. Deliver to Discord DM channel YOUR_DM_CHANNEL_ID using curl with Ralph's token (OPENCLAW_DISCORD_RALPH_TOKEN env var)."
+    "message": "Read ~/.openclaw/skills/prompt-review/SKILL.md then run the prompt gym. Deliver to Discord DM channel YOUR_DM_CHANNEL_ID using curl with Ralph's token (OPENCLAW_DISCORD_RALPH_TOKEN env var)."
   },
   "delivery": {
     "mode": "announce",
@@ -171,7 +171,7 @@ curl -s -X POST \
   -H "Authorization: Bot $OPENCLAW_DISCORD_RALPH_TOKEN" \
   -H "Content-Type: application/json" \
   "https://discord.com/api/v10/channels/YOUR_DM_CHANNEL_ID/messages" \
-  -d '{"content": "Ralph'\''s Prompt Digest is set up. First daily digest goes out tomorrow at 3am SGT. 🏁"}'
+  -d '{"content": "Ralph'\''s Prompt Gym is set up. First daily digest goes out tomorrow at 3am SGT. 🏁"}'
 ```
 
 ---
@@ -181,7 +181,7 @@ curl -s -X POST \
 In your Ralph agent session (or via the main agent):
 
 ```
-Run the prompt digest for today as a test. Be rigorous.
+Run the prompt gym for today as a test. Be rigorous.
 ```
 
 Ralph will scan the last 24h of sessions and send a digest to your Discord DMs.
@@ -192,7 +192,7 @@ Ralph will scan the last 24h of sessions and send a digest to your Discord DMs.
 
 ```bash
 # Remove the cron job
-# Edit ~/.openclaw/cron/jobs.json and remove the job with id "prompt-digest-daily"
+# Edit ~/.openclaw/cron/jobs.json and remove the job with id "prompt-gym-daily"
 
 # Remove the skill
 rm -rf ~/.openclaw/skills/prompt-review
@@ -218,5 +218,5 @@ openclaw gateway restart
 ## Getting Help
 
 - OpenClaw docs: https://docs.openclaw.ai
-- GitHub issues: https://github.com/Freakingnolife/prompt-digest/issues
+- GitHub issues: https://github.com/Freakingnolife/prompt-gym/issues
 - Discord community: https://discord.com/invite/clawd

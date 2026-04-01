@@ -248,7 +248,7 @@ These are the most common failure patterns Ralph flags:
 
 ### As a live review (on-demand)
 ```
-Run the prompt digest for today.
+Run the prompt gym for today.
 ```
 
 ### As a scheduled coach (daily cron)

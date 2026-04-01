@@ -2,7 +2,7 @@
 
 ## Overview
 
-The prompt digest runs as an OpenClaw cron job. The job wakes Ralph up at the scheduled time, Ralph reads the SKILL.md, runs the audit, and delivers the digest to Discord.
+The prompt gym runs as an OpenClaw cron job. The job wakes Ralph up at the scheduled time, Ralph reads the SKILL.md, runs the audit, and delivers the digest to Discord.
 
 ## Step-by-Step Setup
 
@@ -30,9 +30,9 @@ Add to your `~/.openclaw/cron/jobs.json`:
 
 ```json
 {
-  "id": "prompt-digest-daily",
+  "id": "prompt-gym-daily",
   "agentId": "ralph",
-  "name": "Prompt Digest → Daily (3am SGT)",
+  "name": "Prompt Gym → Daily (3am SGT)",
   "enabled": true,
   "createdAtMs": 1775070000000,
   "updatedAtMs": 1775070000000,
@@ -47,7 +47,7 @@ Add to your `~/.openclaw/cron/jobs.json`:
     "kind": "agentTurn",
     "model": "anthropic/claude-sonnet-4-6",
     "timeoutSeconds": 300,
-    "message": "Read ~/.openclaw/skills/prompt-review/SKILL.md then run the prompt digest for the user. Deliver to Discord DM channel YOUR_DM_CHANNEL_ID using curl with Ralph's token (OPENCLAW_DISCORD_RALPH_TOKEN env var)."
+    "message": "Read ~/.openclaw/skills/prompt-review/SKILL.md then run the prompt gym for the user. Deliver to Discord DM channel YOUR_DM_CHANNEL_ID using curl with Ralph's token (OPENCLAW_DISCORD_RALPH_TOKEN env var)."
   },
   "delivery": {
     "mode": "announce",
@@ -95,7 +95,7 @@ Check the job was added:
 cat ~/.openclaw/cron/jobs.json | python3 -c "
 import json,sys
 d=json.load(sys.stdin)
-job = [j for j in d['jobs'] if 'prompt-digest' in j.get('id','')]
+job = [j for j in d['jobs'] if 'prompt-gym' in j.get('id','')]
 print(json.dumps(job, indent=2))
 "
 ```
@@ -159,7 +159,7 @@ To trigger a test run immediately:
 Remove the cron job:
 
 ```bash
-# Edit jobs.json and remove the job with id "prompt-digest-daily"
+# Edit jobs.json and remove the job with id "prompt-gym-daily"
 # Then restart the gateway:
 openclaw gateway restart
 ```

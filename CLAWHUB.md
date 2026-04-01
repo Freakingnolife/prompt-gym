@@ -1,13 +1,13 @@
 # Publishing on ClawhHub
 
-ClawhHub (https://clawhub.com) is OpenClaw's skill marketplace. This guide covers how to package and publish Prompt Digest there.
+ClawhHub (https://clawhub.com) is OpenClaw's skill marketplace. This guide covers how to package and publish Prompt Gym there.
 
 ## Package Structure for ClawhHub
 
-ClawhHub skills are distributed as a single `SKILL.md` with embedded documentation. The `prompt-digest` skill is self-contained — the `SKILL.md` already has everything needed:
+ClawhHub skills are distributed as a single `SKILL.md` with embedded documentation. The `prompt-gym` skill is self-contained — the `SKILL.md` already has everything needed:
 
 ```
-prompt-digest/
+prompt-gym/
 └── SKILL.md  ← The only file ClawhHub needs
 ```
 
@@ -48,7 +48,7 @@ Before publishing, verify it works in isolation:
 
 ### 4. Submit
 
-- **Skill name:** `prompt-digest`
+- **Skill name:** `prompt-gym`
 - **Tagline:** "Ralph reviews your prompts against the OpenAI guidance framework — daily, automatically."
 - **Description:** Copy from README.md summary
 - **Category:** `productivity` or `coaching`
@@ -58,7 +58,7 @@ Before publishing, verify it works in isolation:
 ### 5. Metadata
 
 ```yaml
-name: prompt-digest
+name: prompt-gym
 description: Ralph's AI prompt coaching via daily digest. Review your prompts 
             against the OpenAI prompt guidance framework, delivered to Discord daily.
 category: productivity
@@ -76,13 +76,13 @@ If you want to share the full system (skill + cron + templates):
 
 ```bash
 # Package the entire repo
-zip -r prompt-digest.zip prompt-digest/ \
-  --exclude "prompt-digest/.git/*" \
-  --exclude "prompt-digest/CLAWHUB.md"
+zip -r prompt-gym.zip prompt-gym/ \
+  --exclude "prompt-gym/.git/*" \
+  --exclude "prompt-gym/CLAWHUB.md"
 
 # Upload to GitHub Releases
 gh release create v1.0.0 \
-  --title "Prompt Digest v1.0.0" \
+  --title "Prompt Gym v1.0.0" \
   --notes "Ralph's daily prompt coaching skill. Full system: skill + cron + templates."
 ```
 
